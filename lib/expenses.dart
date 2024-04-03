@@ -1,3 +1,4 @@
+import 'package:expense_tracker/expenses_list.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
 
@@ -26,9 +27,12 @@ class _ExpensesState extends State<Expenses> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: const [
-          Text('Chart'),
-          Text('Expense List'),
+        children: [
+          const Text('Chart'),
+          Expanded(
+            // Expanded is used to take the remaining space in the column as ListView is nested in column widget and flutter doesn't know how to size this.
+            child: ExpensesList(expenses: _reqisteredExpenses),
+          ),
         ],
       ),
     );
