@@ -1,3 +1,4 @@
+import 'package:expense_tracker/Widgets/expenses_list/expense_item.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +11,8 @@ class ExpensesList extends StatelessWidget {
     return ListView.builder(
       itemCount: expenses
           .length, // Used to output no of items in list for belwo function to run that many times
-      itemBuilder: (ctx, index) => Text(expenses[index]
-          .title), // this is direct function definition where after the return value is given after => symbol.
+      itemBuilder: (ctx, index) => ExpenseItem(expenses[
+          index]), // this is direct function definition where after the return value is given after => symbol.
     ); // Listview.builder Renders only the part of list that is visible.
   }
 }
