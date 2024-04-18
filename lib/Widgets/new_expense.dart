@@ -11,11 +11,13 @@ class NewExpense extends StatefulWidget {
 
 class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
 
   // Dispose method here is used to clear out the memory so that controller doesnt keep stuff in memory
   @override
   void dispose() {
     _titleController.dispose();
+    _amountController.dispose();
     super.dispose();
   }
 
@@ -36,13 +38,32 @@ class _NewExpenseState extends State<NewExpense> {
               label: Text('Title'),
             ),
           ),
+          TextField(
+            controller: _amountController,
+            // This is used to take the input from the user
+            // maxLength: 10,
+            keyboardType: TextInputType
+                .number, // This is used to show the keyboard with the name type
+            decoration: const InputDecoration(
+              // This is used to show the hint text in the text field
+              label: Text('Amount'),
+              prefixText: '\₹ ',
+            ),
+          ),
           Row(
             children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
               ElevatedButton(
                   onPressed: () {
                     print(_titleController.text);
+                    print(_amountController.text);
                   },
-                  child: Text('Save Expense')),
+                  child: const Text('Save Expense')),
             ],
           )
         ],
