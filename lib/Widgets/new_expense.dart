@@ -68,6 +68,8 @@ class _NewExpenseState extends State<NewExpense> {
         category: _selectedCategory,
       ),
     );
+    //closes the dialog modal after adding a new expense
+    Navigator.pop(context);
   }
 
   // Dispose method here is used to clear out the memory so that controller doesnt keep stuff in memory
@@ -82,7 +84,7 @@ class _NewExpenseState extends State<NewExpense> {
   Widget build(BuildContext context) {
     return Padding(
       // remove const in front of padding if error comes in future
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.fromLTRB(16, 48, 16, 16),
       child: Column(
         children: [
           TextField(
