@@ -12,7 +12,7 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> _reqisteredExpenses = [
+  final List<Expense> _registeredExpenses = [
     Expense(
         title: 'Flutter Course',
         amount: 3500,
@@ -38,7 +38,13 @@ class _ExpensesState extends State<Expenses> {
 
   void _addExpense(Expense expense) {
     setState(() {
-      _reqisteredExpenses.add(expense);
+      _registeredExpenses.add(expense);
+    });
+  }
+
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.remove(expense);
     });
   }
 
@@ -60,7 +66,10 @@ class _ExpensesState extends State<Expenses> {
           const Text('Chart'),
           Expanded(
             // Expanded is used to take the remaining space in the column as ListView is nested in column widget and flutter doesn't know how to size this.
-            child: ExpensesList(expenses: _reqisteredExpenses),
+            child: ExpensesList(
+              expenses: _registeredExpenses,
+              onRemoveExpense: _removeExpense,
+            ),
           ),
         ],
       ),
