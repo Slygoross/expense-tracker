@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() {
@@ -34,6 +36,8 @@ class _NewExpenseState extends State<NewExpense> {
     final enteredAmount = double.tryParse(
         _amountController.text); // for converting string to double
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+
+    // If expense is invalid.
     if (_titleController.text.isEmpty ||
         amountIsInvalid ||
         _selectedDate == null) {
@@ -54,6 +58,16 @@ class _NewExpenseState extends State<NewExpense> {
       );
       return;
     }
+
+    //Else
+    widget.onAddExpense(
+      Expense(
+        title: _titleController.text,
+        amount: enteredAmount,
+        date: _selectedDate!,
+        category: _selectedCategory,
+      ),
+    );
   }
 
   // Dispose method here is used to clear out the memory so that controller doesnt keep stuff in memory
