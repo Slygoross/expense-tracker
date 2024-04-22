@@ -43,13 +43,42 @@ class _ExpensesState extends State<Expenses> {
   }
 
   void _removeExpense(Expense expense) {
+    final expenseIndex = _registeredExpenses.indexOf(expense);
     setState(() {
       _registeredExpenses.remove(expense);
     });
+    ScaffoldMessenger.of(context)
+        .clearSnackBars(); // for clearing the snackbar when an expense is deleted.
+    ScaffoldMessenger.of(context).showSnackBar(
+      // for showing the message when an expense is deleted.
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Expense Deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = Center(
+      child: Text('No Expenses found, Add some!'),
+    );
+
+    if (_registeredExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+        expenses: _registeredExpenses,
+        onRemoveExpense: _removeExpense,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expense Tracker'),
@@ -66,10 +95,7 @@ class _ExpensesState extends State<Expenses> {
           const Text('Chart'),
           Expanded(
             // Expanded is used to take the remaining space in the column as ListView is nested in column widget and flutter doesn't know how to size this.
-            child: ExpensesList(
-              expenses: _registeredExpenses,
-              onRemoveExpense: _removeExpense,
-            ),
+            child: mainContent,
           ),
         ],
       ),
