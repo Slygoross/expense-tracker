@@ -15,6 +15,11 @@ class ExpensesList extends StatelessWidget {
           .length, // Used to output no of items in list for belwo function to run that many times
       itemBuilder: (ctx, index) => Dismissible(
         key: ValueKey(expenses[index]),
+        background: Container(
+            color: Theme.of(context).colorScheme.error.withOpacity(0.75),
+            margin: EdgeInsets.symmetric(
+              horizontal: Theme.of(context).cardTheme.margin!.horizontal,
+            )),
         onDismissed: (direction) {
           onRemoveExpense(expenses[index]);
         },
