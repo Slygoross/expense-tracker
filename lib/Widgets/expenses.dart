@@ -69,7 +69,9 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
-    Widget mainContent = Center(
+    final width = MediaQuery.of(context).size.width;
+
+    Widget mainContent = const Center(
       child: Text('No Expenses found, Add some!'),
     );
 
@@ -91,15 +93,27 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Chart(expenses: _registeredExpenses),
-          Expanded(
-            // Expanded is used to take the remaining space in the column as ListView is nested in column widget and flutter doesn't know how to size this.
-            child: mainContent,
-          ),
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: _registeredExpenses),
+                Expanded(
+                  // Expanded is used to take the remaining space in the column as ListView is nested in column widget and flutter doesn't know how to size this.
+                  child: mainContent,
+                ),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(
+                  child: Chart(expenses: _registeredExpenses),
+                ),
+                Expanded(
+                  // Expanded is used to take the remaining space in the column as ListView is nested in column widget and flutter doesn't know how to size this.
+                  child: mainContent,
+                ),
+              ],
+            ),
     );
   }
 }
