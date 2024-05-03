@@ -30,6 +30,8 @@ class _ExpensesState extends State<Expenses> {
     showModalBottomSheet(
       //isScrollControlled with set the modalbottomsheet to full screen
       isScrollControlled: true,
+      useSafeArea:
+          true, // Makes sure that the app is not overlapping the device features such camera or the status bar.
       context: context,
       builder: (ctx) => NewExpense(
         onAddExpense: _addExpense,
